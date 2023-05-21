@@ -1,0 +1,79 @@
+{% extends 'voice/header.html' %}
+
+<!--Block content goes below-->
+
+
+  {% block content %}
+
+
+  {% include "voice/include/navbar.html" %}
+
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+  
+    th, td {
+      border: 2px solid black;
+      padding: 8px;
+    }
+  </style>
+
+
+  <table>
+    <tr>
+      <td>
+        <h2>{{thread.topic }}</h2>
+        <p>{{ thread.description }}</p>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <hr>
+
+  <div class = "comment-wrapper"> 
+        <h4> Comments</h4>
+        <hr>
+
+        {% for message in thread_messages %}
+        <div>
+            <small>@{{message.user}} {{message.created|timesince}} ago</small>
+            <p> {{message.body}}</p>
+            <hr>
+        </div>
+
+        {% endfor %}
+
+  </div>
+  {% if request.user.is_authenticated %}
+  <div class = "comment-form">
+    <form method = "POST" action = "">
+        {% csrf_token %}
+        <input type = "text" name = "body" placeholder="Comment here">
+    </form>
+
+
+  </div>
+  {%endif%}
+
+  <div>
+    <style>
+      .btn-link {
+        display: inline-block;
+        padding: 0;
+        background: none;
+        border: none;
+        font: inherit;
+        color: inherit;
+        cursor: pointer;
+      }
+    </style>
+    <hr>
+    <button class="btn btn-primary" type="button">
+      <a href="{% url 'homepage' %}" class="btn-link">Go Back</a>
+    </button>
+  </div>
+ 
+
+  {% endblock %}

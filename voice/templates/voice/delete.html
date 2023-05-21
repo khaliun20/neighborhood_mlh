@@ -1,0 +1,35 @@
+{% extends 'voice/header.html' %}
+
+
+{% block content %}
+
+
+{% include "voice/include/navbar.html" %}
+<style>
+    .btn-link {
+      display: inline-block;
+      padding: 0;
+      background: none;
+      border: none;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+    }
+  </style>
+
+
+<div>
+    <form method = "POST" action ="" >
+        {% csrf_token %}
+        <p> Do you want to delete? "{{obj}}"</p>
+        <button class="btn btn-primary" type="button">
+            <a href="{{ request.META.HTTP_REFERER }}" class="btn-link">Go Back</a>
+          </button>
+        <button class="btn btn-primary" type="confirm">Confirm</button>
+
+
+    </form>
+</div>
+
+
+{% endblock %}
